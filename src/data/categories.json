@@ -1,0 +1,26 @@
+[
+  {
+    "slug": "women",
+    "name": "Women",
+    "blurb": "Knitwear, outerwear & tailoring",
+    "image": "/images/categoryone.jpg"
+  },
+  {
+    "slug": "men",
+    "name": "Men",
+    "blurb": "Everyday essentials, refined",
+    "image": "/images/categorytwo.jpg"
+  },
+  {
+    "slug": "footwear",
+    "name": "Footwear",
+    "blurb": "Made in Portugal",
+    "image": "/images/categorythree.jpg"
+  },
+  {
+    "slug": "accessories",
+    "name": "Accessories",
+    "blurb": "Leather goods & eyewear",
+    "image": "/images/categoryfour.jpg"
+  }
+]

@@ -1,3 +1,4 @@
+import categories from '../data/categories.json'
 import { useState } from "react";
 import FeaturedCard from "../ui/FeaturedCard"
 import products from '../data/products.json'
@@ -5,22 +6,37 @@ import { NavLink, useParams } from "react-router-dom"
 import { Check } from "lucide-react";
 export default function Shop() {
     const [visibleCount, setVisibleCount] = useState(8);
-    const [check, setCheck] = useState(false)
+    // const [check, setCheck] = useState(false)
     const [checkedCollections, setCheckedCollections] = useState([])
+    const [inStockOnly, setInStockOnly] = useState(false)
+    const [onSale, setOnSale] = useState(false)
     const hasMore = visibleCount < products.length;
     const { category } = useParams()
 
-    const filteredProduct = category ? products.filter(product => product.category === category) : products
+    const filteredProduct = products.filter((product) => {
+        const matchesCategory = category ? product.category === category : true;
+        const matchesCollection = checkedCollections.length === 0 || checkedCollections.includes(product.collection);
+        const matchesStock = !inStockOnly || product.stock > 0;
+        const matchesSale = !onSale || Boolean(product.compareAt);
 
+        return matchesCategory && matchesCollection && matchesStock && matchesSale;
+    })
     const collections = ["Atelier", "Everyday", "Archive", "Travel"]
-
+    const currentCategory = categories.find(categ => categ.slug === category)
 
     const handleLoadMore = () => {
-        setVisibleCount((prev) => prev + 8);
+        setVisibleCount((prev) => prev + 8)
     };
 
     function handleChecked(collection) {
         setCheckedCollections(prev => prev.includes(collection) ? prev.filter(coll => coll !== collection) : [...prev, collection])
+    }
+
+    function handleStock() {
+        setInStockOnly(prev => !prev)
+    }
+    function handleSale() {
+        setOnSale(prev => !prev)
     }
     return (
         <main>
@@ -43,8 +59,8 @@ export default function Shop() {
                 </nav>
 
                 <div className="title-header">
-                    <h1>All Products</h1>
-                    <p>Small-run pieces, restocked rarely.</p>
+                    <h1>{currentCategory ? currentCategory.name : "All products"}</h1>
+                    <p>{currentCategory ? currentCategory.blurb : "Small-run pieces, restocked rarely."}</p>
                 </div>
             </div>
 
@@ -87,13 +103,17 @@ export default function Shop() {
                         </div>
 
                         <div className="aside-other">
-                            <button></button>
-                            <label htmlFor="">In stock</label>
+                            <button onClick={handleStock} id='stock' type="button" role="checkbox" className={inStockOnly ? "checked" : ""}>
+                                {inStockOnly && <Check color='white' />}
+                            </button>
+                            <label htmlFor="stock">In stock</label>
                         </div>
 
                         <div className="aside-other">
-                            <button></button>
-                            <label htmlFor="">On sale</label>
+                            <button onClick={handleSale} id='sale' type="button" role="checkbox" className={onSale ? "checked" : ""}>
+                                {onSale && <Check color='white' />}
+                            </button>
+                            <label htmlFor="sale">On sale</label>
                         </div>
                     </div>
                 </aside>

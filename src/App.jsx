@@ -3,8 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import ShopLayout from './layout/ShopLayout'
 import Home from './pages/Home'
 import Shop from './pages/Shop'
-
-
+import ProductDetailsPage from './pages/ProductDetailsPage'
 
 function App() {
 
@@ -17,6 +16,7 @@ function App() {
             <Route index element={<Home />} />
             <Route path='shop' element={<Shop />} />
             <Route path='shop/:category' element={<Shop />} />
+            <Route path="/products/:id" element={<ProductDetailsPage />} />
           </Route>
         </Routes>
       </BrowserRouter>

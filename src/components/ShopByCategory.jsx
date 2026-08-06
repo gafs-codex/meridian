@@ -1,5 +1,5 @@
 import categories from "../data/categories.json"
-import { NavLink } from "react-router-dom"
+import { NavLink, Link } from "react-router-dom"
 export default function ShopByCategory() {
     return (
         <section className="shop-categ">
@@ -16,13 +16,15 @@ export default function ShopByCategory() {
                 <div className="categ-cover">
                     {categories.map((cat) => {
                         return (
-                            <div className="categ-card" key={cat.slug}>
-                                <img src={cat.image} alt={cat.name} className="categ-img" />
-                                <div className="categ-text">
-                                    <h3>{cat.name}</h3>
-                                    <p>{cat.blurb}</p>
+                            <Link to={`/shop/${cat.name}`}>
+                                <div className="categ-card" key={cat.slug}>
+                                    <img src={cat.image} alt={cat.name} className="categ-img" />
+                                    <div className="categ-text">
+                                        <h3>{cat.name}</h3>
+                                        <p>{cat.blurb}</p>
+                                    </div>
                                 </div>
-                            </div>
+                            </Link>
                         );
                     })}
                 </div>

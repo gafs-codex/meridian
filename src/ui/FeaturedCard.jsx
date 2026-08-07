@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom"
 import { Heart, Star, Circle } from "lucide-react"
+import { useFavorites } from "../context/FavoritesContext";
 
 export default function FeaturedCard({ product }) {
+    const { isFavorites, toggleFavorites } = useFavorites()
+    const favorited = isFavorites(product.id)
+
     const COLOR_MAP = {
         Oat: "#ded1bb",
         Charcoal: "#3d3d3c",
@@ -34,8 +38,14 @@ export default function FeaturedCard({ product }) {
 
                 <img src={product.images} alt={product.name} />
 
-                <button className="wishlist-btn" onClick={(e) => e.preventDefault()}>
-                    <Heart size={18} />
+                <button className="wishlist-btn"
+                    onClick={(e) => {
+                        e.preventDefault()
+                        e.stopPropagation()
+                        toggleFavorites(product.id)
+                    }}
+                >
+                    <Heart size={18} fill={favorited ? "#b6502b" : "transparent"} stroke={favorited ? "#b6502b" : "black"} />
                 </button>
             </div>
 

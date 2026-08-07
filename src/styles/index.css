@@ -495,6 +495,7 @@ footer {
     align-items: center;
     gap: 0.5rem;
     font-family: "DM Sans", sans-serif;
+    margin-bottom: 1rem;
 
 }
 
@@ -904,9 +905,8 @@ label {
     display: flex;
     align-items: center;
     gap: 0.6rem;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 400;
-    margin-bottom: 1rem;
 }
 
 .compare-price {
@@ -1062,13 +1062,88 @@ label {
 
 }
 
-.star-head span,
-p {
+.star-head>span {
     margin-top: 0.5rem;
 }
+
 
 .star-head p {
     color: #746c63;
     font-family: "DM Sans", sans-serif;
     font-size: 0.85rem;
+    margin-top: 0.5rem;
+}
+
+.reviews-list {
+    list-style-type: none;
+}
+
+.reviews-list li:first-child {
+    margin-top: 0rem;
+    padding-bottom: 2rem;
+}
+
+.reviews-list li {
+    margin-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+.review-stars {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+}
+
+.review-title {
+    margin: 0;
+    font-weight: 500;
+    font-size: 0.9rem;
+}
+
+.review-author {
+    display: flex;
+    align-items: center;
+    color: #746c63;
+    font-size: 0.85rem;
+}
+
+.review-comment {
+    color: #746c63;
+}
+
+.others {
+    padding: 0rem 2rem 4rem;
+}
+
+.others-header {
+    padding-bottom: 1rem;
+    box-shadow: 0 1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.others-main {
+    margin-top: 2.5rem;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.nav-icon-btn {
+    position: relative;
+}
+
+.favorites-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #c0392b;
+    color: #fff;
+    font-size: 0.65rem;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
 }

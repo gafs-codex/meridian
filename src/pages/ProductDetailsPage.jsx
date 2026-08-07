@@ -1,25 +1,53 @@
-import { Heart, Minus, Plus, Star } from "lucide-react"
-import { useState } from "react"
+import { Heart, Minus, Plus, Star, Dot } from "lucide-react"
+import { useState, useMemo, useEffect } from "react"
 import { useParams, NavLink } from "react-router-dom"
 import products from '../data/products.json'
 import reviews from '../data/reviews.json'
+import FeaturedCard from "../ui/FeaturedCard"
+import { addRecentlyViewed, getRecentlyViewed } from "../utils/recentlyViewed"
+import { useFavorites } from "../context/FavoritesContext"
 
 export default function ProductDetailsPage() {
+    const { isFavorites, toggleFavorites } = useFavorites();
     const { id } = useParams()
-    const [amount, setAmount] = useState(1)
 
     const product = products.find(product => String(product.id) === id)
+    const productReviewData = reviews.find(review => review.productId === id)
+    const productReviews = productReviewData ? productReviewData.reviews : []
+    const favorited = product ? isFavorites(product.id) : false;
 
-    const productReviews = reviews.filter(review => String(review.productId) === id)
-
+    const [amount, setAmount] = useState(1)
     const [selectedColor, setSelectedColor] = useState(product?.colors[0])
     const [selectedSize, setSelectedSize] = useState(null)
     const [selectedImage, setSelectedImage] = useState(0)
+    const [recentlyViewedIds, setRecentlyViewedIds] = useState([]);
+
+    const relatedProducts = useMemo(
+        () => products.filter((p) => p.category === product.category && p.id !== product.id).slice(0, 4),
+        [product]
+    )
+
+    useEffect(() => {
+        if (!product) return;
+
+        addRecentlyViewed(product.id);
+        setRecentlyViewedIds(getRecentlyViewed());
+    }, [product]);
+
+
+    const recentlyViewedProducts = useMemo(
+        () => recentlyViewedIds
+            .map((pid) => products.find((p) => p.id === pid))
+            .filter((p) => p && p.id !== product?.id), // don't show the current product itself
+        [recentlyViewedIds, product]
+    );
+
 
     if (!product) return <p>Product not found.</p>
 
     const increment = () => setAmount((prev) => prev + 1)
     const decrement = () => setAmount((prev) => (prev > 1 ? prev - 1 : 1))
+
 
     return (
         <>
@@ -53,6 +81,7 @@ export default function ProductDetailsPage() {
                                 size={16}
                                 fill={i < Math.round(product.rating) ? "#b6502b" : "none"}
                                 stroke="#b6502b"
+                                strokeWidth={1}
                             />
                         ))}
                         <span className="rating-text">
@@ -111,8 +140,8 @@ export default function ProductDetailsPage() {
 
                         <button className="add-to-bag">Add to bag</button>
 
-                        <button className="wishlist-btn-p">
-                            <Heart size={18} />
+                        <button onClick={() => toggleFavorites(product.id)} className="wishlist-btn-p">
+                            <Heart size={18} fill={favorited ? "#b6502b" : "transparent"} stroke={favorited ? "#b6502b" : "black"} />
                         </button>
                     </div>
 
@@ -133,6 +162,7 @@ export default function ProductDetailsPage() {
                                     size={16}
                                     fill={i < Math.round(product.rating) ? "#b6502b" : "none"}
                                     stroke="#b6502b"
+                                    strokeWidth={1}
                                 />
                             ))}
                         </span>
@@ -143,22 +173,55 @@ export default function ProductDetailsPage() {
                             <li key={review.id} className="review-item">
                                 <div className="review-header">
                                     <div className="review-stars">
-                                        {Array.from({ length: 5 }, (_, i) => (
-                                            <Star
-                                                key={i}
-                                                size={14}
-                                                fill={i < review.rating ? "#b6502b" : "none"}
-                                                stroke="#b6502b"
-                                            />
-                                        ))}
+                                        <span>
+                                            {Array.from({ length: 5 }, (_, i) => (
+                                                <Star
+                                                    key={i}
+                                                    size={14}
+                                                    fill={i < review.rating ? "#b6502b" : "none"}
+                                                    stroke="#b6502b"
+                                                    strokeWidth={1}
+                                                />
+                                            ))}
+                                        </span>
+                                        <p className="review-title">{review.title}</p>
+                                        <span className="review-author">{review.author} <Dot strokeWidth={0.2} color="#746c63" fill="#746c63" /> {review.date}</span>
                                     </div>
-                                    <span className="review-author">{review.author}</span>
+                                    <p className="review-comment">{review.body}</p>
                                 </div>
-                                <p className="review-comment">{review.comment}</p>
                             </li>
                         ))}
                     </ul>
                 </div>
+            </section>
+
+            <section className="others">
+                <div className="others-header">
+                    <h2>You may also like</h2>
+                </div>
+
+
+                <div className="others-main">
+                    {relatedProducts.slice(0, 4).map((p) => (
+                        <FeaturedCard key={p.id} product={p} />
+                    ))}
+                </div>
+            </section>
+
+
+            <section className="others">
+                <div className="others-header">
+                    <h2>Recently viewed</h2>
+                </div>
+
+                {recentlyViewedProducts.length > 0 && (
+                    <div className="others-main">
+                        {recentlyViewedProducts.map((p) => (
+                            <FeaturedCard key={p.id} product={p} />
+                        ))}
+                    </div>
+                )}
+
             </section>
         </>
     )

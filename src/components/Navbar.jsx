@@ -1,8 +1,12 @@
 import { Search, Heart, User, ShoppingBag, Menu } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
+import { useFavorites } from '../context/FavoritesContext';
+
 import '../styles/index.css'
 
 export default function Navbar() {
+    const { favorites } = useFavorites();
+
     return (
         <header>
             <p>Complimentary shipping on orders over $150 — code MERIDIAN10 for 10% off</p>
@@ -15,7 +19,9 @@ export default function Navbar() {
                     </button>
                 </div>
 
-                <h1>Meridian</h1>
+                <NavLink to="/" style={{ color: "black", textDecoration: "none" }}>
+                    <h1>Meridian</h1>
+                </NavLink>
                 <nav>
                     <ul>
                         <li>
@@ -63,9 +69,10 @@ export default function Navbar() {
                         </NavLink>
                     </button>
 
-                    <button>
-                        <NavLink className="nav-links">
+                    <button className='nav-icon-btn'>
+                        <NavLink className="nav-links" to="/favorites">
                             <Heart strokeWidth={1.5} size={20} />
+                            {favorites.length > 0 && <span className="favorites-count">{favorites.length}</span>}
                         </NavLink>
                     </button>
 

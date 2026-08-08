@@ -1,11 +1,16 @@
 import { Search, Heart, User, ShoppingBag, Menu } from 'lucide-react';
 import { NavLink } from 'react-router-dom';
 import { useFavorites } from '../context/FavoritesContext';
+import { useCart } from '../context/CartContext'
 
 import '../styles/index.css'
 
 export default function Navbar() {
     const { favorites } = useFavorites();
+    const { itemCount } = useCart();
+
+
+
 
     return (
         <header>
@@ -55,7 +60,7 @@ export default function Navbar() {
                         </li>
 
                         <li>
-                            <NavLink className={({ isActive }) => isActive ? "nav-links active" : "nav-links"} to="/our-story">
+                            <NavLink className={({ isActive }) => isActive ? "nav-links active" : "nav-links"} to="/story">
                                 Our Story
                             </NavLink>
                         </li>
@@ -83,10 +88,13 @@ export default function Navbar() {
                     </button>
 
                     <button>
-                        <NavLink className="nav-links">
+                        <NavLink className="nav-links" to="/cart">
                             <ShoppingBag strokeWidth={1.5} size={20} />
+                            {itemCount > 0 && <span className="cart-count">{itemCount}</span>}
                         </NavLink>
                     </button>
+
+
                 </div>
             </div>
         </header>

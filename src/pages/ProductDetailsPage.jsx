@@ -1,15 +1,19 @@
 import { Heart, Minus, Plus, Star, Dot } from "lucide-react"
 import { useState, useMemo, useEffect } from "react"
-import { useParams, NavLink } from "react-router-dom"
+import { useParams, NavLink, useNavigate } from "react-router-dom"
 import products from '../data/products.json'
 import reviews from '../data/reviews.json'
 import FeaturedCard from "../ui/FeaturedCard"
 import { addRecentlyViewed, getRecentlyViewed } from "../utils/recentlyViewed"
 import { useFavorites } from "../context/FavoritesContext"
+import { useCart } from "../context/CartContext"
 
 export default function ProductDetailsPage() {
     const { isFavorites, toggleFavorites } = useFavorites();
+    const { addToCart } = useCart()
+    const navigate = useNavigate()
     const { id } = useParams()
+
 
     const product = products.find(product => String(product.id) === id)
     const productReviewData = reviews.find(review => review.productId === id)
@@ -48,7 +52,22 @@ export default function ProductDetailsPage() {
     const increment = () => setAmount((prev) => prev + 1)
     const decrement = () => setAmount((prev) => (prev > 1 ? prev - 1 : 1))
 
+    function handleAddToBag() {
+        if (!selectedSize) {
+            alert("please select a size")
+            return
+        }
+        addToCart(product, { color: selectedColor, size: selectedSize, quantity: amount })
+    }
 
+    function handleBuyNow() {
+        if (!selectedSize) {
+            alert("please select a size")
+            return
+        }
+        addToCart(product, { color: selectedColor, size: selectedSize, quantity: amount })
+        navigate("/checkout")
+    }
     return (
         <>
             <div className="product-main">
@@ -138,14 +157,14 @@ export default function ProductDetailsPage() {
                             <button onClick={increment}><Plus size={16} /></button>
                         </div>
 
-                        <button className="add-to-bag">Add to bag</button>
+                        <button className="add-to-bag" onClick={handleAddToBag}>Add to bag</button>
 
                         <button onClick={() => toggleFavorites(product.id)} className="wishlist-btn-p">
                             <Heart size={18} fill={favorited ? "#b6502b" : "transparent"} stroke={favorited ? "#b6502b" : "black"} />
                         </button>
                     </div>
 
-                    <button className="buy-now">Buy it now</button>
+                    <button className="buy-now" onClick={handleBuyNow}>Buy it now</button>
                 </div>
             </div>
             <section className="reviews">

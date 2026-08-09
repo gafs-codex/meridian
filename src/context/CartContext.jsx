@@ -22,7 +22,7 @@ export function CartProvider({ children }) {
     function addToCart(product, options) {
         const { color, size, quantity } = options
         setCartItems((prev) => {
-            const existingIndex = findIndex(item => item.productId === product.id && item.color === color && item.size === size)
+            const existingIndex = prev.findIndex(item => item.productId === product.id && item.color === color && item.size === size)
 
             if (existingIndex !== -1) {
                 const updated = [...prev];

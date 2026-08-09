@@ -87,7 +87,7 @@ export default function Navbar() {
                         </NavLink>
                     </button>
 
-                    <button>
+                    <button className='nav-icon-btn'>
                         <NavLink className="nav-links" to="/cart">
                             <ShoppingBag strokeWidth={1.5} size={20} />
                             {itemCount > 0 && <span className="cart-count">{itemCount}</span>}

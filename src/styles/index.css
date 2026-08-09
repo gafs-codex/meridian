@@ -4,14 +4,14 @@
     box-sizing: border-box;
 }
 
-* {
+/* * {
     scrollbar-width: none;
     -ms-overflow-style: none;
 }
-
-*::-webkit-scrollbar {
+*/
+/* *::-webkit-scrollbar {
     display: none;
-}
+} */
 
 body {
     height: 100vh;
@@ -1275,6 +1275,7 @@ dd {
 .empty-bag {
     padding: 6rem 0rem;
     font-family: "DM Sans", sans-serif;
+    text-align: center;
 }
 
 .empty-bag button {
@@ -1287,30 +1288,52 @@ dd {
     cursor: pointer;
 }
 
+
+.cart-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background: #c0392b;
+    color: #fff;
+    font-size: 0.65rem;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
 .cart-layout {
     display: grid;
     grid-template-columns: 1fr 380px;
     gap: 3rem;
+    margin-top: 2.5rem;
 }
 
 .cart-items {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    /* gap: 1.5rem; */
 }
 
 .cart-item {
     display: flex;
     gap: 1.25rem;
-    padding-bottom: 1.5rem;
-    border-bottom: 1px solid #eee;
+    padding: 1.5rem 0rem;
+    box-shadow:
+        0 -1px 0 0 rgba(0, 0, 0, 0.1);
+}
+
+.cart-item:last-child {
+    box-shadow: 0 -1px 0 0 rgba(0, 0, 0, 0.1),
+        0 1px 0 0 rgba(0, 0, 0, 0.1);
 }
 
 .cart-item img {
     width: 140px;
     height: 140px;
     object-fit: cover;
-    border-radius: 4px;
     flex-shrink: 0;
 }
 
@@ -1327,8 +1350,8 @@ dd {
 }
 
 .cart-item-header h3 {
-    font-size: 1rem;
-    font-weight: 500;
+    font-size: 0.9rem;
+    font-weight: 400;
     margin: 0;
 }
 
@@ -1345,9 +1368,10 @@ dd {
 }
 
 .cart-item-variant {
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     color: #888;
     margin: 0.4rem 0 auto 0;
+    font-family: "DM Sans", sans-serif;
 }
 
 .cart-item-footer {
@@ -1379,14 +1403,17 @@ dd {
 }
 
 .cart-item-price {
-    font-weight: 600;
+    font-weight: 400;
+    font-size: 0.9rem;
 }
 
-/* order summary */
 .order-summary {
     background: #f7f5f2;
     padding: 1.75rem;
-    border-radius: 4px;
+    border: none;
+    box-shadow:
+        0 0 0 1px rgba(0, 0, 0, 0.1),
+        inset 0 0 0 0.1px rgba(0, 0, 0, 0.05);
     align-self: start;
 }
 
@@ -1406,8 +1433,8 @@ dd {
     flex: 1;
     padding: 0.7rem;
     border: 1px solid #ccc;
-    border-radius: 2px;
     font-size: 0.9rem;
+    outline: none;
 }
 
 .promo-row button {

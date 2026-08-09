@@ -6,9 +6,9 @@ import Footer from "../components/Footer"
 export default function ShopLayout() {
     return (
         <>
-            {/* <Navbar /> */}
+            <Navbar />
             <Outlet />
-            {/* <Footer /> */}
+            <Footer />
         </>
     )
 }

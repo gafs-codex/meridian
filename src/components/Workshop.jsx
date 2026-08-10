@@ -9,7 +9,7 @@ export default function Workshop() {
                 <h2>Fewer things <br /> <em>Made properly</em></h2>
             </div>
 
-            <p>We release two collections a year and re-make what works. Every garment carries the name of the mill that wove it and the workshop that cut it — because a piece you can repair is a piece you keep. <NavLink className="stroy-link">Read our story</NavLink> </p>
+            <p>We release two collections a year and re-make what works. Every garment carries the name of the mill that wove it and the workshop that cut it — because a piece you can repair is a piece you keep. <NavLink className="stroy-link" to="/home/story">Read our story</NavLink> </p>
         </section>
     )
 }

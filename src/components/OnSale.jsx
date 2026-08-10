@@ -12,7 +12,7 @@ export default function OnSale() {
                     <span className="eyebrow">Final markdowns</span>
                     <h2>On sale</h2>
                 </div>
-                <NavLink>
+                <NavLink className="link">
                     All sale items
                 </NavLink>
             </div>

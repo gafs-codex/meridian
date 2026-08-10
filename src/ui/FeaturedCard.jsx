@@ -26,7 +26,7 @@ export default function FeaturedCard({ product }) {
         Blue: "#5b7ea8"
     };
     return (
-        <Link to={`/products/${product.id}`} className="featured-card">
+        <Link to={`/home/products/${product.id}`} className="featured-card">
             <div className="featured-image">
                 <div className="badge-group">
                     {product.compareAt && <span className="badge badge-sale">Sale</span>}

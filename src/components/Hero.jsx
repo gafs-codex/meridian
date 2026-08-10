@@ -11,12 +11,14 @@ export default function Hero() {
 
                     <p className="hero-text">Twenty-four pieces. Natural fibres, honest construction, and workshops we visit in person.</p>
 
-                    <div className="hero-buttons">
-                        <NavLink className="link" to='/shop'>
-                            <button className="collection">Shop the Collection <ArrowRight strokeWidth={1.5} /></button>
+                    <div className="hero-link">
+                        <NavLink to="/home/shop" className="collection">
+                            Shop the collection <ArrowRight size={20} />
                         </NavLink>
 
-                        <button className="sale">View sale</button>
+                        <NavLink className="vsale">
+                            view sale
+                        </NavLink>
                     </div>
                 </div>
             </div>

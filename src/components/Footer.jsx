@@ -13,20 +13,20 @@ export default function Footer() {
                 <div className='footer-box'>
                     <h4>Shop</h4>
                     <ul>
-                        <li><NavLink className='link li-links' to="/shop/women">Women</NavLink></li>
-                        <li><NavLink className='link li-links' to="/shop/men">Men</NavLink></li>
-                        <li><NavLink className='link li-links' to="/shop/footwear">Footwear</NavLink></li>
-                        <li><NavLink className="link li-links" to="/shop/accessories">Accessories</NavLink></li>
+                        <li><NavLink className='link' to="/home/shop/women">Women</NavLink></li>
+                        <li><NavLink className='link' to="/home/shop/men">Men</NavLink></li>
+                        <li><NavLink className='link' to="/home/shop/footwear">Footwear</NavLink></li>
+                        <li><NavLink className="link" to="/home/shop/accessories">Accessories</NavLink></li>
                     </ul>
                 </div>
 
                 <div className='footer-box'>
                     <h4>Help</h4>
                     <ul>
-                        <li><NavLink className='link li-links'>Contact us</NavLink></li>
-                        <li><NavLink className='link li-links'>Shipping & returns</NavLink></li>
-                        <li><NavLink className='link li-links'>Track an order</NavLink></li>
-                        <li><NavLink className='link li-links'>Our story</NavLink></li>
+                        <li><NavLink className='link'>Contact us</NavLink></li>
+                        <li><NavLink className='link'>Shipping & returns</NavLink></li>
+                        <li><NavLink className='link'>Track an order</NavLink></li>
+                        <li><NavLink className='link'>Our story</NavLink></li>
 
                     </ul>
                 </div>

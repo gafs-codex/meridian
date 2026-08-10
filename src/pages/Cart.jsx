@@ -82,10 +82,10 @@ export default function Cart() {
                             <span>Total</span>
                             <span>${total.toFixed(2)}</span>
                         </div>
-                        <button className="checkout-btn" onClick={() => navigate("/checkout")}>
+                        <button className="checkout-btn" onClick={() => navigate("/home/checkout")}>
                             Checkout
                         </button>
-                        <NavLink to="/shop" className="continue-link">Continue shopping</NavLink>
+                        <NavLink to="/home/shop" className="continue-link">Continue shopping</NavLink>
                     </div>
                 </div>
             )}

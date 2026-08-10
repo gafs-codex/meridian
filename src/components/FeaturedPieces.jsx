@@ -12,8 +12,8 @@ export default function FeaturedPieces() {
                     <span className="eyebrow">Most loved</span>
                     <h2>Featured Pieces</h2>
                 </div>
-                <NavLink to="/">
-                    all products
+                <NavLink to="/home/shop" className="link">
+                    All products
                 </NavLink>
             </div>
 

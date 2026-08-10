@@ -1,28 +1,66 @@
 import categories from '../data/categories.json'
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import FeaturedCard from "../ui/FeaturedCard"
+import SortDropdown from '../ui/SortDropdown';
 import products from '../data/products.json'
-import { NavLink, useParams } from "react-router-dom"
-import { Check } from "lucide-react";
+import { NavLink, useParams, useNavigate, useSearchParams } from "react-router-dom"
+import { Check, SlidersHorizontal, X } from "lucide-react";
 export default function Shop() {
+    const [searchParams] = useSearchParams();
     const [visibleCount, setVisibleCount] = useState(8);
-    // const [check, setCheck] = useState(false)
     const [checkedCollections, setCheckedCollections] = useState([])
     const [inStockOnly, setInStockOnly] = useState(false)
-    const [onSale, setOnSale] = useState(false)
-    const hasMore = visibleCount < products.length;
-    const { category } = useParams()
+    const [onSale, setOnSale] = useState(searchParams.get("sale") === "true");
+    const [sortBy, setSortBy] = useState("featured");
+    const [maxPrice, setMaxPrice] = useState(640);
+    const [filtersOpen, setFiltersOpen] = useState(false);
+    const { category } = useParams();
+    const minPrice = 0;
+    const absoluteMax = 640;
+
+    const validCategories = ["women", "men", "footwear", "accessories"];
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if (category && !validCategories.includes(category)) {
+            navigate("/404", { replace: true });
+        }
+    }, [category]);
+
+    useEffect(() => {
+        const saleParam = searchParams.get("sale");
+        if (saleParam === "true") {
+            setOnSale(true);
+        }
+    }, [searchParams]);
 
     const filteredProduct = products.filter((product) => {
         const matchesCategory = category ? product.category === category : true;
         const matchesCollection = checkedCollections.length === 0 || checkedCollections.includes(product.collection);
         const matchesStock = !inStockOnly || product.stock > 0;
         const matchesSale = !onSale || Boolean(product.compareAt);
+        const matchesPrice = product.price <= maxPrice;
 
-        return matchesCategory && matchesCollection && matchesStock && matchesSale;
+        return matchesCategory && matchesCollection && matchesStock && matchesSale && matchesPrice;
+    })
+
+    const sortedProducts = [...filteredProduct].sort((a, b) => {
+        switch (sortBy) {
+            case "price-asc":
+                return a.price - b.price;
+            case "price-desc":
+                return b.price - a.price;
+            case "rating":
+                return b.rating - a.rating;
+            case "newest":
+                return (b.isNew ? 1 : 0) - (a.isNew ? 1 : 0);
+            default:
+                return 0;
+        }
     })
     const collections = ["Atelier", "Everyday", "Archive", "Travel"]
     const currentCategory = categories.find(categ => categ.slug === category)
+    const hasMore = visibleCount < sortedProducts.length;
 
     const handleLoadMore = () => {
         setVisibleCount((prev) => prev + 8)
@@ -42,12 +80,12 @@ export default function Shop() {
         <main>
             <div className="shop-header">
                 <nav className="slug-link">
-                    <NavLink className="link" to="/">
+                    <NavLink className="link" to="/home">
                         Home
                     </NavLink>
                     <span>/</span>
 
-                    <NavLink className="link" to="/shop">
+                    <NavLink className="link" to="/home/shop">
                         Shop
                     </NavLink>
                     {category && (
@@ -66,24 +104,46 @@ export default function Shop() {
 
 
             <div className="shop-main">
-                <aside>
+
+                <div className="mobile-filter-bar">
+                    <button className="filters-trigger" onClick={() => setFiltersOpen(true)}>
+                        <SlidersHorizontal size={16} /> Filters
+                    </button>
+                    <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
+                </div>
+
+                <aside className={filtersOpen ? "aside-open" : ""}>
                     <div>
+                        <div className="aside-heading">
+                            <h2>Filters</h2>
+                            <button className="close-filters" onClick={() => setFiltersOpen(false)}>
+                                <X size={20} />
+                            </button>
+                        </div>
+
                         <div className="aside-categ">
                             <h3>Category</h3>
 
                             <ul>
-                                <li><NavLink end className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/shop">All products</NavLink></li>
-                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/shop/women">Women</NavLink></li>
-                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/shop/men">Men</NavLink></li>
-                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/shop/footwear">Footwear</NavLink></li>
-                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/shop/accessories">Accessories</NavLink></li>
+                                <li><NavLink end className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/home/shop">All products</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/home/shop/women">Women</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/home/shop/men">Men</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/home/shop/footwear">Footwear</NavLink></li>
+                                <li><NavLink className={({ isActive }) => isActive ? "link li-links active" : "link li-links"} to="/home/shop/accessories">Accessories</NavLink></li>
                             </ul>
                         </div>
 
                         <div className="aside-price">
                             <h3>Price</h3>
-                            <span></span>
-                            <p>$0.00 -  $640.00</p>
+                            <input
+                                type="range"
+                                min={minPrice}
+                                max={absoluteMax}
+                                value={maxPrice}
+                                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                                className="price-slider"
+                            />
+                            <p>${minPrice.toFixed(2)} — ${maxPrice.toFixed(2)}</p>
                         </div>
 
                         <div className="aside-collection">
@@ -115,6 +175,20 @@ export default function Shop() {
                             </button>
                             <label htmlFor="sale">On sale</label>
                         </div>
+
+                        <button className="clear-filters" onClick={() => {
+                            setCheckedCollections([]);
+                            setInStockOnly(false);
+                            setOnSale(false);
+                            setMaxPrice(absoluteMax);
+                        }}>
+                            Clear all filters
+                        </button>
+
+
+                        <button className="show-results-btn" onClick={() => setFiltersOpen(false)}>
+                            Show {sortedProducts.length} Results
+                        </button>
                     </div>
                 </aside>
 
@@ -122,11 +196,13 @@ export default function Shop() {
 
                 <div>
                     <div className="display-header">
-                        <p>{filteredProduct.length} products</p>
+                        <p>{sortedProducts.length} products</p>
+
+                        <SortDropdown sortBy={sortBy} setSortBy={setSortBy} />
                     </div>
 
                     <div className="display-main">
-                        {filteredProduct.slice(0, visibleCount).map((product) => {
+                        {sortedProducts.slice(0, visibleCount).map((product) => {
                             return <FeaturedCard key={product.id} product={product} />
                         })}
                     </div>

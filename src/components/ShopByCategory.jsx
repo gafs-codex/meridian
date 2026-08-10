@@ -6,8 +6,8 @@ export default function ShopByCategory() {
             <div className="categ-header">
                 <h2>Shop by category</h2>
 
-                <NavLink>
-                    View All
+                <NavLink className="link">
+                    View all
                 </NavLink>
             </div>
 
@@ -16,7 +16,7 @@ export default function ShopByCategory() {
                 <div className="categ-cover">
                     {categories.map((cat) => {
                         return (
-                            <Link to={`/shop/${cat.name}`}>
+                            <Link to={`/home/shop/${cat.name}`}>
                                 <div className="categ-card" key={cat.slug}>
                                     <img src={cat.image} alt={cat.name} className="categ-img" />
                                     <div className="categ-text">

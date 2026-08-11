@@ -2051,6 +2051,114 @@ dd {
     .menu {
         display: block;
     }
+
+    .workshop p {
+        width: 100%;
+        font-size: 0.85rem;
+    }
+
+    .stroy-link {
+        margin: 0;
+    }
+
+    .main-footer,
+    .cart-layout {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .show-favorites,
+    .search-results-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sub-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.85rem 1.25rem;
+        background: #f8f6f1;
+        width: 100%;
+    }
+
+    /* Hide desktop nav */
+    .sub-header>nav {
+        display: none;
+    }
+
+    /* Show hamburger */
+    .menu {
+        display: block;
+    }
+
+    .menu button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-nav {
+        display: block;
+        max-height: 0;
+        overflow: hidden;
+        background: #f8f6f1;
+        width: 100%;
+        transition: max-height 0.35s ease;
+    }
+
+    .mobile-nav.open {
+        max-height: 500px;
+        border-top: 1px solid #e8e4de;
+    }
+
+    .mobile-nav>ul {
+        overflow: hidden;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1.5rem 2rem;
+        gap: 1.25rem;
+        margin: 0;
+    }
+
+    .mobile-link {
+        text-decoration: none;
+        color: #1a1a1a;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .mobile-link.active {
+        color: #b6502b;
+    }
+
+    /* Keep icons visible and together on the right */
+    .nav-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-btn button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .sub-header nav {
+        display: none;
+    }
 }
 
 @media (max-width: 480px) {

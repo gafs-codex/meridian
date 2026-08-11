@@ -1996,6 +1996,63 @@ dd {
     display: none;
 }
 
+.mobile-nav {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sub-header {
+        gap: 1rem;
+        padding: 1rem 1.5rem;
+    }
+
+    .desktop-nav ul {
+        gap: 1.25rem;
+    }
+
+    .desktop-nav ul li {
+        font-size: 0.9rem;
+    }
+
+    .categ-cover,
+    .featured-cover,
+    .sale-cover,
+    .display-main,
+    .others-main {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .sub-footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .main-footer {
+        gap: 1.5rem;
+        justify-self: center;
+    }
+
+    .reviews-main,
+    .product-main,
+    .checkout-main {
+        grid-template-columns: repeat(1, 1fr);
+    }
+
+    .reviews-list {
+        margin-top: 1.25rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .desktop-nav {
+        display: none !important;
+    }
+
+    .menu {
+        display: block;
+    }
+}
+
 @media (max-width: 480px) {
 
 

@@ -164,7 +164,9 @@ export default function ProductDetailsPage() {
                         </button>
                     </div>
 
-                    <button className="buy-now" onClick={handleBuyNow}>Buy it now</button>
+                    <NavLink to="/home/checkout">
+                        <button className="buy-now" onClick={handleBuyNow}>Buy it now</button>
+                    </NavLink>
                 </div>
             </div>
             <section className="reviews">

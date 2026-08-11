@@ -1997,8 +1997,10 @@ dd {
 }
 
 @media (max-width: 480px) {
-    nav {
-        display: none;
+
+
+    .desktop-nav {
+        display: none !important;
     }
 
     .menu {
@@ -2364,6 +2366,108 @@ dd {
         margin-top: 0.85rem;
     }
 
+    .product-main {
+        grid-template-columns: 1fr;
+        padding: 1.25rem 1.25rem 0;
+        gap: 1.5rem;
+    }
+
+    .product-display {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+    }
+
+    .main-image {
+        order: 1;
+    }
+
+    .thumbnail-list {
+        order: 2;
+        flex-direction: row;
+        gap: 0.6rem;
+    }
+
+    .thumb {
+        width: 64px;
+        flex-shrink: 0;
+    }
+
+    .product-details {
+        margin-top: 0;
+    }
+
+    .product-details h1 {
+        font-size: 1.75rem;
+    }
+
+    .price {
+        font-size: 1.1rem;
+    }
+
+    .option-buttons {
+        gap: 0.5rem;
+    }
+
+    .option-btn {
+        padding: 0.6rem 0.9rem;
+        font-size: 0.85rem;
+    }
+
+    .purchase-row {
+        flex-wrap: wrap;
+    }
+
+    .quantity-control {
+        order: 1;
+    }
+
+    .add-to-bag {
+        order: 2;
+        flex: 1 1 auto;
+        min-width: 60%;
+    }
+
+    .wishlist-btn-p {
+        order: 3;
+    }
+
+    .buy-now {
+        margin-top: 0.5rem;
+    }
+
+
+    .reviews {
+        padding: 2.5rem 1.25rem;
+    }
+
+    .reviews-main {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .star-head h2 {
+        font-size: 2.25rem;
+    }
+
+    .reviews-list li {
+        margin-top: 1.5rem;
+        padding-bottom: 1.5rem;
+    }
+
+    .review-stars {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .others {
+        padding: 0rem 1.25rem 3rem;
+    }
+
+    .others-main {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
     .checkout {
         padding: 2rem 1.25rem;
     }
@@ -2378,7 +2482,7 @@ dd {
         gap: 2rem;
     }
 
-    /* City/Postal and Expiry/CVC stack instead of pairing side-by-side */
+
     .form-row {
         grid-template-columns: 1fr;
         gap: 1.25rem;
@@ -2397,7 +2501,6 @@ dd {
         padding: 0.85rem 1rem;
     }
 
-    /* order summary becomes a normal block, not sticky */
     .full-order-summary {
         position: static;
         top: auto;
@@ -2416,4 +2519,97 @@ dd {
     .summary-item-details p {
         font-size: 0.75rem;
     }
+
+    header {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sub-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 0.85rem 1.25rem;
+        background: #f8f6f1;
+        width: 100%;
+    }
+
+    /* Hide desktop nav */
+    .sub-header>nav {
+        display: none;
+    }
+
+    /* Show hamburger */
+    .menu {
+        display: block;
+    }
+
+    .menu button {
+        border: none;
+        background: none;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+    }
+
+    .mobile-nav {
+        display: block;
+        max-height: 0;
+        overflow: hidden;
+        background: #f8f6f1;
+        width: 100%;
+        transition: max-height 0.35s ease;
+    }
+
+    .mobile-nav.open {
+        max-height: 500px;
+        border-top: 1px solid #e8e4de;
+    }
+
+    .mobile-nav>ul {
+        overflow: hidden;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 1.5rem 2rem;
+        gap: 1.25rem;
+        margin: 0;
+    }
+
+    .mobile-link {
+        text-decoration: none;
+        color: #1a1a1a;
+        text-transform: uppercase;
+        font-size: 0.85rem;
+        letter-spacing: 0.06em;
+        font-family: "DM Sans", sans-serif;
+    }
+
+    .mobile-link.active {
+        color: #b6502b;
+    }
+
+    /* Keep icons visible and together on the right */
+    .nav-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .nav-btn button {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        display: flex;
+        align-items: center;
+    }
+
+    .sub-header nav {
+        display: none;
+    }
+
+    /* header>.sub-header>nav {
+        display: none;
+    } */
 }

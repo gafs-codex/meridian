@@ -16,7 +16,7 @@ export default function ShopByCategory() {
                 <div className="categ-cover">
                     {categories.map((cat) => {
                         return (
-                            <Link to={`/home/shop/${cat.name}`}>
+                            <Link to={`/home/shop/${cat.name.toLowerCase()}`}>
                                 <div className="categ-card" key={cat.slug}>
                                     <img src={cat.image} alt={cat.name} className="categ-img" />
                                     <div className="categ-text">

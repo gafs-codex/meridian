@@ -2363,4 +2363,57 @@ dd {
         font-size: 0.8rem;
         margin-top: 0.85rem;
     }
+
+    .checkout {
+        padding: 2rem 1.25rem;
+    }
+
+    .checkout h1 {
+        font-size: 2rem;
+    }
+
+    .checkout-main {
+        margin-top: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    /* City/Postal and Expiry/CVC stack instead of pairing side-by-side */
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 1.25rem;
+    }
+
+    .form-main {
+        gap: 1rem;
+    }
+
+    .shipping-method,
+    .payment {
+        margin-top: 2rem;
+    }
+
+    .shipping-method label {
+        padding: 0.85rem 1rem;
+    }
+
+    /* order summary becomes a normal block, not sticky */
+    .full-order-summary {
+        position: static;
+        top: auto;
+        margin-top: 0;
+    }
+
+    .summary-item img {
+        width: 56px;
+        height: 70px;
+    }
+
+    .summary-item-details h4 {
+        font-size: 0.8rem;
+    }
+
+    .summary-item-details p {
+        font-size: 0.75rem;
+    }
 }

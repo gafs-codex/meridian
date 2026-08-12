@@ -2,11 +2,17 @@ import categories from '../data/categories.json'
 import { useState, useEffect } from "react";
 import FeaturedCard from "../ui/FeaturedCard"
 import SortDropdown from '../ui/SortDropdown';
-import products from '../data/products.json'
 import { NavLink, useParams, useNavigate, useSearchParams } from "react-router-dom"
 import { Check, SlidersHorizontal, X } from "lucide-react";
+import { getProducts } from "../lib/products";
 export default function Shop() {
+
     const [searchParams] = useSearchParams();
+
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
     const [visibleCount, setVisibleCount] = useState(8);
     const [checkedCollections, setCheckedCollections] = useState([])
     const [inStockOnly, setInStockOnly] = useState(false)
@@ -18,14 +24,34 @@ export default function Shop() {
     const minPrice = 0;
     const absoluteMax = 640;
 
+    useEffect(() => {
+        async function fetchProducts() {
+            try {
+                setLoading(true);
+
+                const data = await getProducts();
+
+                setProducts(data);
+            } catch (error) {
+                console.error("Failed to load products:", error);
+                setError("Unable to load products.");
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchProducts();
+    }, []);
+
     const validCategories = ["women", "men", "footwear", "accessories"];
     const navigate = useNavigate();
+
 
     useEffect(() => {
         if (category && !validCategories.includes(category)) {
             navigate("/404", { replace: true });
         }
-    }, [category]);
+    }, [category, navigate]);
 
     useEffect(() => {
         const saleParam = searchParams.get("sale");

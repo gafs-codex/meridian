@@ -1,6 +1,6 @@
 import { Search } from "lucide-react";
 import { useSearchParams, NavLink } from "react-router-dom"
-import products from '../data/products.json'
+import products from '../data/products/products.json'
 import FeaturedCard from '../ui/FeaturedCard'
 import { useState, useEffect } from "react";
 

@@ -1,7 +1,7 @@
 import { Heart, Minus, Plus, Star, Dot } from "lucide-react"
 import { useState, useMemo, useEffect } from "react"
 import { useParams, NavLink, useNavigate } from "react-router-dom"
-import products from '../data/products.json'
+import products from '../data/products/products.json'
 import reviews from '../data/reviews.json'
 import FeaturedCard from "../ui/FeaturedCard"
 import { addRecentlyViewed, getRecentlyViewed } from "../utils/recentlyViewed"

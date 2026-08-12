@@ -1,5 +1,5 @@
 import { useFavorites } from "../context/FavoritesContext"
-import prdoucts from '../data/products.json'
+import prdoucts from '../data/products/products.json'
 import FeaturedCard from "../ui/FeaturedCard"
 import { NavLink } from "react-router-dom"
 export default function Favorites() {

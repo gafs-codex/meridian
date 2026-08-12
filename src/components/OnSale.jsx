@@ -1,4 +1,4 @@
-import products from "../data/products.json"
+import products from "../data/products/products.json"
 import { NavLink } from "react-router-dom"
 import FeaturedCard from "../ui/FeaturedCard"
 export default function OnSale() {

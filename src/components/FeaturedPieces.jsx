@@ -1,14 +1,12 @@
 import { getProducts } from "../lib/products";
-import { NavLink } from "react-router-dom"
-import FeaturedCard from "../ui/FeaturedCard"
+import { NavLink } from "react-router-dom";
+import FeaturedCard from "../ui/FeaturedCard";
+import { useState, useEffect } from "react";
+
 export default function FeaturedPieces() {
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
-
-    const filteredProducts = products.filter((product) => {
-        return product.rating >= 4.6
-    })
 
     useEffect(() => {
         async function fetchProducts() {
@@ -29,6 +27,9 @@ export default function FeaturedPieces() {
         fetchProducts();
     }, []);
 
+    const filteredProducts = products.filter((product) => {
+        return product.rating >= 4.6;
+    });
 
     if (loading) {
         return (
@@ -46,7 +47,6 @@ export default function FeaturedPieces() {
         );
     }
 
-    
     return (
         <section className="featured">
             <div className="featured-header">
@@ -54,6 +54,7 @@ export default function FeaturedPieces() {
                     <span className="eyebrow">Most loved</span>
                     <h2>Featured Pieces</h2>
                 </div>
+
                 <NavLink to="/home/shop" className="link">
                     All products
                 </NavLink>
@@ -61,11 +62,14 @@ export default function FeaturedPieces() {
 
             <div className="featured-main">
                 <div className="featured-cover">
-                    {filteredProducts.map((product) => {
-                        return <FeaturedCard key={product.id} product={product} />
-                    }).slice(0, 8)}
+                    {filteredProducts.slice(0, 8).map((product) => (
+                        <FeaturedCard
+                            key={product.id}
+                            product={product}
+                        />
+                    ))}
                 </div>
             </div>
         </section>
-    )
+    );
 }

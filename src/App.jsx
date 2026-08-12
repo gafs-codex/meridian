@@ -16,7 +16,6 @@ import { CartProvider } from './context/CartContext'
 
 function App() {
 
-
   return (
     <>
       <FavoritesProvider>
@@ -29,7 +28,7 @@ function App() {
                 <Route index element={<Home />} />
                 <Route path='shop' element={<Shop />} />
                 <Route path='shop/:category' element={<Shop />} />
-                <Route path="products/:id" element={<ProductDetailsPage />} />
+                <Route path="products/:slug" element={<ProductDetailsPage />} />
                 <Route path='favorites' element={<Favorites />} />
                 <Route path='story' element={<Story />} />
                 <Route path='cart' element={<Cart />} />

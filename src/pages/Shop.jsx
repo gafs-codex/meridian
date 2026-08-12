@@ -30,7 +30,7 @@ export default function Shop() {
                 setLoading(true);
 
                 const data = await getProducts();
-
+                console.log("PRODUCTS FROM SUPABASE:", data);
                 setProducts(data);
             } catch (error) {
                 console.error("Failed to load products:", error);

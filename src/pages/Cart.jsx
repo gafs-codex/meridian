@@ -19,7 +19,7 @@ export default function Cart() {
                 <div className="empty-bag">
                     <p>Your bag is currently empty.</p>
 
-                    <NavLink to="/shop">
+                    <NavLink to="/home/shop">
                         <button>
                             Continue shopping
                         </button>

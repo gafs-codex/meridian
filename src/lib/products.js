@@ -1,6 +1,23 @@
 import { supabase } from "./supabase";
 
 /**
+ * Convert Supabase product format
+ * into the format your React components already use.
+ */
+function formatProduct(product) {
+    return {
+        ...product,
+
+        // Supabase → React
+        reviewCount: product.review_count,
+        isNew: product.is_new,
+
+        // Keep these if your database already uses these names
+        compareAt: product.compare_at,
+    };
+}
+
+/**
  * Get all products
  */
 export async function getProducts() {
@@ -14,9 +31,8 @@ export async function getProducts() {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(formatProduct);
 }
-
 
 /**
  * Get one product by slug
@@ -33,9 +49,8 @@ export async function getProductBySlug(slug) {
         throw error;
     }
 
-    return data;
+    return formatProduct(data);
 }
-
 
 /**
  * Get products by category
@@ -52,9 +67,8 @@ export async function getProductsByCategory(category) {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(formatProduct);
 }
-
 
 /**
  * Get featured products
@@ -70,5 +84,5 @@ export async function getFeaturedProducts() {
         throw error;
     }
 
-    return data || [];
+    return (data || []).map(formatProduct);
 }

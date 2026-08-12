@@ -13,33 +13,39 @@ import NotFound from './pages/NotFound'
 import Auth from './pages/Register'
 import { FavoritesProvider } from './context/FavoritesContext'
 import { CartProvider } from './context/CartContext'
+import { AuthProvider } from "./context/AuthContext";
+import { supabase } from "./lib/supabase";
+
+console.log("Supabase URL:", supabase.supabaseUrl);
 
 function App() {
 
   return (
     <>
-      <FavoritesProvider>
-        <CartProvider>
-          <BrowserRouter>
-            <Routes>
-              <Route path='/' element={<Auth />} />
+      <AuthProvider>
+        <FavoritesProvider>
+          <CartProvider>
+            <BrowserRouter>
+              <Routes>
+                <Route path='/' element={<Auth />} />
 
-              <Route path='/home' element={<ShopLayout />}>
-                <Route index element={<Home />} />
-                <Route path='shop' element={<Shop />} />
-                <Route path='shop/:category' element={<Shop />} />
-                <Route path="products/:slug" element={<ProductDetailsPage />} />
-                <Route path='favorites' element={<Favorites />} />
-                <Route path='story' element={<Story />} />
-                <Route path='cart' element={<Cart />} />
-                <Route path='search' element={<SearchPage />} />
-                <Route path='checkout' element={<Checkout />} />
-              </Route>
-              <Route path='*' element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </CartProvider>
-      </FavoritesProvider>
+                <Route path='/home' element={<ShopLayout />}>
+                  <Route index element={<Home />} />
+                  <Route path='shop' element={<Shop />} />
+                  <Route path='shop/:category' element={<Shop />} />
+                  <Route path="products/:slug" element={<ProductDetailsPage />} />
+                  <Route path='favorites' element={<Favorites />} />
+                  <Route path='story' element={<Story />} />
+                  <Route path='cart' element={<Cart />} />
+                  <Route path='search' element={<SearchPage />} />
+                  <Route path='checkout' element={<Checkout />} />
+                </Route>
+                <Route path='*' element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </CartProvider>
+        </FavoritesProvider>
+      </AuthProvider>
     </>
   )
 }

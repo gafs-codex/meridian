@@ -4,19 +4,18 @@ import ShopByCategory from "../components/ShopByCategory"
 import FeaturedPieces from "../components/FeaturedPieces"
 import Workshop from "../components/Workshop"
 import OnSale from "../components/OnSale"
-import Shop from "./Shop"
+// import Shop from "./Shop"
 
 
 export default function Home() {
     return (
         <main>
-            {/* <Hero />
+            <Hero />
             <Informatics />
             <ShopByCategory />
             <FeaturedPieces />
             <Workshop />
-            <OnSale /> */}
-            <Shop />
+            <OnSale />
         </main>
     )
 }

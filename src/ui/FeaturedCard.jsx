@@ -36,7 +36,7 @@ export default function FeaturedCard({ product }) {
                     )}
                 </div>
 
-                <img src={product.images} alt={product.name} />
+                <img src={product.images[0]} alt={product.name} />
 
                 <button className="wishlist-btn"
                     onClick={(e) => {

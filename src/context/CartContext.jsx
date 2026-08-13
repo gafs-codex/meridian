@@ -58,12 +58,15 @@ export function CartProvider({ children }) {
         setCartItems(prev => prev.map(item => item.cartItemId === cartItemId ? { ...item, quantity: Math.max(1, quantity) } : item))
     }
 
+    function clearCart() {
+        setCartItems([]);
+    }
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const itemCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
 
 
     return (
-        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, updateQuantity, subtotal, itemCount }}>
+        <CartContext.Provider value={{ cartItems, addToCart, removeFromCart, clearCart, updateQuantity, subtotal, itemCount }}>
             {children}
         </CartContext.Provider>
     )

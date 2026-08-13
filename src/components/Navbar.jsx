@@ -98,7 +98,7 @@ export default function Navbar() {
                     </button>
 
                     <button>
-                        <NavLink className="nav-links">
+                        <NavLink className="nav-links" to="/home/user">
                             <User strokeWidth={1.5} size={20} />
                         </NavLink>
                     </button>

@@ -17,101 +17,110 @@ export default function Auth() {
 
     const isRegister = mode === "register";
 
-    async function handleSubmit(e) {
-        e.preventDefault();
+async function handleSubmit(e) {
+    e.preventDefault();
 
-        setError("");
-        setMessage("");
+    setError("");
+    setMessage("");
 
-        // -------------------------
-        // REGISTER
-        // -------------------------
-        if (isRegister) {
-            if (!username.trim()) {
-                setError("Please enter a username.");
-                return;
-            }
-
-            if (!email.trim()) {
-                setError("Please enter your email.");
-                return;
-            }
-
-            if (!password) {
-                setError("Please enter a password.");
-                return;
-            }
-
-            try {
-                setLoading(true);
-
-                const { data, error } = await supabase.auth.signUp({
-                    email: email.trim(),
-                    password,
-                    options: {
-                        data: {
-                            username: username.trim(),
-                        },
-                    },
-                });
-
-                if (error) {
-                    throw error;
-                }
-
-                console.log("Supabase signup:", data);
-
-                setMessage(
-                    "Account created! Please check your email and confirm your account before signing in."
-                );
-
-                // Clear the form after successful registration
-                setUsername("");
-                setEmail("");
-                setPassword("");
-
-            } catch (error) {
-                console.error("Signup error:", error);
-
-                setError(
-                    error?.message || "Something went wrong while creating your account."
-                );
-            } finally {
-                setLoading(false);
-            }
-
+    if (isRegister) {
+        if (!username.trim()) {
+            setError("Please enter a username.");
             return;
         }
 
-        // -------------------------
-        // SIGN IN
-        // -------------------------
+        if (!email.trim()) {
+            setError("Please enter your email.");
+            return;
+        }
+
+        if (!password) {
+            setError("Please enter a password.");
+            return;
+        }
+
         try {
             setLoading(true);
 
-            const { data, error } = await supabase.auth.signInWithPassword({
+            const { data, error } = await supabase.auth.signUp({
                 email: email.trim(),
                 password,
+                options: {
+                    data: {
+                        username: username.trim(),
+                    },
+                },
             });
 
             if (error) {
                 throw error;
             }
 
-            console.log("Supabase sign in:", data);
+            console.log("Supabase signup:", data);
 
-            navigate("/home");
+            setMessage(
+                "Account created! Please check your email and confirm your account before signing in."
+            );
+
+            setUsername("");
+            setEmail("");
+            setPassword("");
 
         } catch (error) {
-            console.error("Sign in error:", error);
+            console.error("Signup error:", error);
 
             setError(
-                error?.message || "Something went wrong while signing in."
+                error?.message ||
+                "Something went wrong while creating your account."
             );
         } finally {
             setLoading(false);
         }
+
+        return;
     }
+
+
+    if (!email.trim()) {
+        setError("Please enter your email.");
+        return;
+    }
+
+    if (!password) {
+        setError("Please enter your password.");
+        return;
+    }
+
+    try {
+        setLoading(true);
+
+        const { data, error } =
+            await supabase.auth.signInWithPassword({
+                email: email.trim(),
+                password,
+            });
+
+        if (error) {
+            throw error;
+        }
+
+        console.log("Supabase sign in:", data);
+
+        setMessage("Signed in successfully!");
+
+        navigate("/home");
+
+    } catch (error) {
+        console.error("Sign in error:", error);
+
+        setError(
+            error?.message ||
+            "Unable to sign in. Please check your email and password."
+        );
+    } finally {
+        setLoading(false);
+    }
+}
 
     function toggleMode() {
         setMode((prev) =>

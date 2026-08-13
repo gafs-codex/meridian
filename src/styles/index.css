@@ -1587,7 +1587,8 @@ dd {
 }
 
 .checkout-main input[type="text"],
-.checkout-main input[type="number"] {
+.checkout-main input[type="number"],
+.checkout-main input[type="email"] {
     width: 100%;
     padding: 0.75rem;
     border: 1px solid #ccc;
@@ -1998,6 +1999,180 @@ dd {
 
 .mobile-nav {
     display: none;
+}
+
+.user {
+    padding: 3.5rem 2rem;
+}
+
+.user-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    color: #b6502b;
+    margin-bottom: 0.5rem;
+    font-family: "DM Sans", sans-serif;
+}
+
+.user-greeting {
+    font-size: 2.75rem;
+    font-weight: 400;
+    font-family: "Instrument Serif", serif;
+    margin-bottom: 2.5rem;
+}
+
+.user-main {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    gap: 3rem;
+    align-items: start;
+}
+
+.user-nav .user-ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1.1rem;
+}
+
+.user-nav-link {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-align: left;
+    transition: color 0.2s;
+}
+
+.user-nav-link:hover {
+    color: #b6502b;
+}
+
+.user-nav-link.active {
+    color: #b6502b;
+}
+
+.order-card {
+    border: 1px solid #e8e4de;
+    border-radius: 2px;
+    padding: 1.5rem;
+    margin-bottom: 1rem;
+    background: #fff;
+}
+
+.order-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+
+.order-id {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: "DM Sans", sans-serif;
+    margin-bottom: 0.35rem;
+}
+
+.order-meta {
+    font-size: 0.8rem;
+    color: #888;
+    font-family: "DM Sans", sans-serif;
+}
+
+.order-total {
+    font-size: 1rem;
+    font-weight: 500;
+    font-family: "DM Sans", sans-serif;
+}
+
+.order-thumbs {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.25rem;
+}
+
+.order-thumb {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    background: #f5f3ef;
+}
+
+.view-order-btn {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: "DM Sans", sans-serif;
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+
+.user-empty {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    color: #888;
+    font-size: 0.9rem;
+}
+
+.user-empty-link {
+    color: #1a1a1a;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.user-profile {
+    max-width: 450px;
+}
+
+.user-profile label,
+span {
+    display: block;
+}
+
+.user-profile span {
+    text-transform: uppercase;
+    color: #746c63;
+}
+
+.user-profile label:first-child {
+    margin-top: 0rem;
+}
+
+.user-profile label {
+    margin-top: 1rem;
+}
+
+.user-profile input {
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    background: inherit;
+    margin-top: 0.5rem;
+    width: 100%;
+    outline: none;
+}
+
+.user-profile input:focus {
+    border: 1px solid black;
+    outline: #000;
 }
 
 @media (max-width: 768px) {

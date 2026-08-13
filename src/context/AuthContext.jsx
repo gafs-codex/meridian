@@ -1,7 +1,7 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { supabase } from "../lib/supabase";
 
-const AuthContext = createContext();
+const AuthContext = createContext(null);
 
 export function AuthProvider({ children }) {
     const [session, setSession] = useState(null);
@@ -35,12 +35,21 @@ export function AuthProvider({ children }) {
         };
     }, []);
 
+    async function signOut() {
+        const { error } = await supabase.auth.signOut();
+
+        if (error) {
+            throw error;
+        }
+    }
+
     return (
         <AuthContext.Provider
             value={{
                 session,
                 user,
                 loading,
+                signOut,
             }}
         >
             {children}

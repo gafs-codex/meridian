@@ -9,7 +9,7 @@ export default function User() {
     const [activeTab, setActiveTab] = useState("orders");
 
     const { favorites } = useFavorites();
-    const { user } = useAuth();
+    const { user, signOut } = useAuth();
 
     const navigate = useNavigate();
 
@@ -18,9 +18,6 @@ export default function User() {
     const [ordersError, setOrdersError] = useState("");
 
 
-    /*
-     * Get the current user's orders
-     */
     useEffect(() => {
         async function fetchOrders() {
             if (!user) {
@@ -33,12 +30,6 @@ export default function User() {
                 setLoadingOrders(true);
                 setOrdersError("");
 
-                /*
-                 * Fetch the user's orders and their order items.
-                 *
-                 * Because order_items has an RLS policy,
-                 * only the authenticated user's items can be returned.
-                 */
                 const { data, error } = await supabase
                     .from("orders")
                     .select(`
@@ -96,10 +87,13 @@ export default function User() {
     }, [user]);
 
 
-    function handleSignOut() {
-        // We'll connect this to supabase.auth.signOut()
-        // in the next auth step.
-        navigate("/");
+    async function handleSignOut() {
+        try {
+            await signOut();
+            navigate("/", { replace: true });
+        } catch (error) {
+            console.error("Sign out error:", error);
+        }
     }
 
 
@@ -170,9 +164,6 @@ export default function User() {
 
                 <div className="user-content">
 
-                    {/* =========================
-                        ORDERS
-                    ========================== */}
 
                     {activeTab === "orders" && (
 
@@ -272,10 +263,7 @@ export default function User() {
                                         <button
                                             className="view-order-btn"
                                             onClick={() =>
-                                                console.log(
-                                                    "Order:",
-                                                    order
-                                                )
+                                                navigate(`/home/orders/${order.id}`)
                                             }
                                         >
                                             View Order
@@ -290,11 +278,6 @@ export default function User() {
                         </div>
 
                     )}
-
-
-                    {/* =========================
-                        PROFILE
-                    ========================== */}
 
                     {activeTab === "profile" && (
 

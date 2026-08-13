@@ -3,15 +3,22 @@ import { useNavigate } from "react-router-dom";
 
 import { useCart } from "../context/CartContext";
 import { useAuth } from "../context/AuthContext";
-import { supabase } from "../lib/supabase";
+// import { supabase } from "../lib/supabase";
 
 export default function Checkout() {
     const { cartItems, subtotal, clearCart } = useCart();
     const { user } = useAuth();
+    const [shippingMethod, setShippingMethod] = useState("Standard");
 
     const navigate = useNavigate();
+    const standardShipping = subtotal > 150 ? 0 : 12;
+    const expressShipping = 18;
 
-    const shipping = subtotal > 150 ? 0 : 18;
+    const shipping =
+        shippingMethod === "Express"
+            ? expressShipping
+            : standardShipping;
+
     const tax = subtotal * 0.08;
     const total = subtotal + shipping + tax;
 
@@ -24,8 +31,6 @@ export default function Checkout() {
         country: "",
         phone: "",
     });
-
-    const [shippingMethod, setShippingMethod] = useState("Standard");
 
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState("");
@@ -41,133 +46,86 @@ export default function Checkout() {
         }));
     }
 
-
     async function handlePlaceOrder(e) {
         e.preventDefault();
 
         setError("");
         setSuccess("");
 
-
         if (!user) {
-            setError("You must be signed in to place an order.");
+            setError("You must be signed in to continue.");
             return;
         }
-
 
         if (cartItems.length === 0) {
             setError("Your cart is empty.");
             return;
         }
 
-
         try {
             setLoading(true);
 
+            /*
+             * Save everything we need after Stripe redirects
+             * the user back to Meridian.
+             */
+            const pendingCheckout = {
+                userId: user.id,
+                form,
+                shippingMethod,
+                shipping,
+                tax,
+                total,
+                cartItems,
+            };
 
-            // ----------------------------------
-            // 1. CREATE THE ORDER
-            // ----------------------------------
-
-            const { data: order, error: orderError } = await supabase
-                .from("orders")
-                .insert({
-                    user_id: user.id,
-
-                    status: "processing",
-
-                    shipping: shippingMethod,
-
-                    total,
-
-                    full_name: form.fullName,
-
-                    email: form.email,
-
-                    address: form.address,
-
-                    city: form.city,
-
-                    postal_code: form.postalCode,
-
-                    country: form.country,
-
-                    phone: form.phone || null,
-                })
-                .select()
-                .single();
-
-
-            if (orderError) {
-                throw orderError;
-            }
-
-
-            // ----------------------------------
-            // 2. CREATE ORDER ITEMS
-            // ----------------------------------
-
-            const orderItems = cartItems.map((item) => ({
-                order_id: order.id,
-
-                product_id: String(item.productId),
-
-                product_name: item.name,
-
-                product_image: item.image,
-
-                price: item.price,
-
-                quantity: item.quantity,
-
-                color: item.color || null,
-
-                size: item.size || null,
-            }));
-
-
-            const { error: itemsError } = await supabase
-                .from("order_items")
-                .insert(orderItems);
-
-
-            if (itemsError) {
-                throw itemsError;
-            }
-
-
-            // ----------------------------------
-            // 3. CLEAR CART
-            // ----------------------------------
-
-            clearCart();
-
-
-            // ----------------------------------
-            // 4. SHOW SUCCESS
-            // ----------------------------------
-
-            setSuccess(
-                `Order ${order.id} was placed successfully.`
+            sessionStorage.setItem(
+                "pending_checkout",
+                JSON.stringify(pendingCheckout)
             );
 
+            const response = await fetch(
+                "http://localhost:4242/api/create-checkout-session",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        cartItems,
+                        shipping,
+                        tax,
+                        total,
+                    }),
+                }
+            );
 
-            // Send the user to their account after a short delay
-            setTimeout(() => {
-                navigate("/home/user");
-            }, 1000);
+            const data = await response.json();
 
+            if (!response.ok) {
+                throw new Error(
+                    data.error || "Unable to start payment."
+                );
+            }
+
+            if (!data.url) {
+                throw new Error(
+                    "Stripe did not return a checkout URL."
+                );
+            }
+
+            window.location.href = data.url;
 
         } catch (error) {
+            console.error("Stripe checkout error:", error);
 
-            console.error("Order creation error:", error);
+            sessionStorage.removeItem("pending_checkout");
 
             setError(
                 error?.message ||
-                "Something went wrong while placing your order."
+                "Unable to start payment."
             );
 
-        } finally {
             setLoading(false);
         }
     }
@@ -348,7 +306,7 @@ export default function Checkout() {
 
                     </div>
 
-
+{/* 
                     <div className="payment">
 
                         <h2>Payment</h2>
@@ -394,7 +352,7 @@ export default function Checkout() {
 
                         </div>
 
-                    </div>
+                    </div> */}
 
 
                     {error && (
@@ -487,7 +445,7 @@ export default function Checkout() {
                         }}
                     >
                         {loading
-                            ? "Placing order..."
+                            ? "Opening payment..."
                             : `Pay $${total.toFixed(2)}`}
                     </button>
 

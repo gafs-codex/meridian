@@ -8,6 +8,7 @@ import FeaturedCard from "../ui/FeaturedCard";
 import { addRecentlyViewed, getRecentlyViewed } from "../utils/recentlyViewed";
 import { useFavorites } from "../context/FavoritesContext";
 import { useCart } from "../context/CartContext";
+import { useToast } from '../context/ToastContext'
 
 import {
     getProductBySlug,

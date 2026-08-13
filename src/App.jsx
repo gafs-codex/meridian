@@ -13,8 +13,12 @@ import NotFound from "./pages/NotFound";
 import Auth from "./pages/Register";
 import User from "./pages/User";
 import ProtectedRoute from "./components/ProtectedRoute";
+import OrderDetailsPage from "./pages/OrderDetailsPage";
+import CheckoutSuccess from "./pages/CheckoutSuccess";
+import ScrollToTop from "./components/ScrollToTop";
 import { FavoritesProvider } from "./context/FavoritesContext";
 import { CartProvider } from "./context/CartContext";
+import { ToastProvider } from "./context/ToastContext";
 import { useAuth } from "./context/AuthContext";
 
 function App() {
@@ -27,33 +31,38 @@ function App() {
   return (
     <FavoritesProvider>
       <CartProvider>
-        <BrowserRouter>
-          <Routes>
+        <ToastProvider>
+          <BrowserRouter>
+            <ScrollToTop />
+            <Routes>
 
-            <Route path="/" element={<Auth />} />
+              <Route path="/" element={<Auth />} />
 
-            <Route path="/home" element={
-              <ProtectedRoute>
-                <ShopLayout />
-              </ProtectedRoute>
-            }>
+              <Route path="/home" element={
+                <ProtectedRoute>
+                  <ShopLayout />
+                </ProtectedRoute>
+              }>
 
-              <Route index element={<Home />} />
-              <Route path="shop" element={<Shop />} />
-              <Route path="shop/:category" element={<Shop />} />
-              <Route path="products/:slug" element={<ProductDetailsPage />} />
-              <Route path="user" element={<User />} />
-              <Route path="favorites" element={<Favorites />} />
-              <Route path="story" element={<Story />} />
-              <Route path="cart" element={<Cart />} />
-              <Route path="search" element={<SearchPage />} />
-              <Route path="checkout" element={<Checkout />} />
-            </Route>
+                <Route index element={<Home />} />
+                <Route path="shop" element={<Shop />} />
+                <Route path="shop/:category" element={<Shop />} />
+                <Route path="products/:slug" element={<ProductDetailsPage />} />
+                <Route path="orders/:orderId" element={<OrderDetailsPage />} />
+                <Route path="checkout/success" element={<CheckoutSuccess />} />
+                <Route path="user" element={<User />} />
+                <Route path="favorites" element={<Favorites />} />
+                <Route path="story" element={<Story />} />
+                <Route path="cart" element={<Cart />} />
+                <Route path="search" element={<SearchPage />} />
+                <Route path="checkout" element={<Checkout />} />
+              </Route>
 
 
-            <Route path="*" element={<NotFound />} />
-          </Routes>
-        </BrowserRouter>
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </ToastProvider>
       </CartProvider>
     </FavoritesProvider>
   );

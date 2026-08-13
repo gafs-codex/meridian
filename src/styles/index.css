@@ -1661,8 +1661,8 @@ dd {
     border: 1px solid #ccc;
     padding: 1.75rem;
     align-self: start;
-    position: sticky;
-    top: 2rem;
+    /* position: sticky; */
+    /* top: 0rem; */
     font-family: "DM Sans", sans-serif;
 
 }
@@ -2174,6 +2174,372 @@ span {
     border: 1px solid black;
     outline: #000;
 }
+
+.order-details-page {
+    background: #f8f6f1;
+    min-height: 100vh;
+    padding: 4rem 1.5rem;
+}
+
+.order-details-inner {
+    max-width: 780px;
+    margin: 0 auto;
+}
+
+/* ── Top confirm section ─────────────────────────── */
+.order-confirm-top {
+    margin-bottom: 3rem;
+}
+
+.order-check-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1.5px solid #b6502b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1.5rem;
+}
+
+.order-thank-you {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(2.5rem, 5vw, 3.5rem);
+    font-weight: 400;
+    color: #1a1a1a;
+    margin-bottom: 0.75rem;
+    line-height: 1.1;
+}
+
+.order-confirm-text {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.6;
+}
+
+.order-confirm-id {
+    color: #b6502b;
+    font-weight: 500;
+}
+
+
+.order-items-list {
+    border-top: 1px solid #ddd9d2;
+}
+
+.order-detail-item {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+    padding: 1.5rem 0;
+    border-bottom: 1px solid #ddd9d2;
+}
+
+.order-detail-img {
+    width: 90px;
+    height: 90px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: #ece9e2;
+}
+
+.order-detail-info {
+    flex: 1;
+}
+
+.order-detail-name {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    margin-bottom: 0.35rem;
+}
+
+.order-detail-meta {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    color: #888;
+}
+
+.order-detail-price {
+    font-family: "DM Sans", sans-serif;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #1a1a1a;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+.order-details-footer {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    padding-top: 2rem;
+
+}
+
+.order-block-title {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 1rem;
+    font-weight: 400;
+}
+
+.order-summary-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.order-summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.order-summary-total {
+    color: #1a1a1a;
+    font-weight: 600;
+    padding-top: 0.5rem;
+    border-top: 1px solid #ddd9d2;
+    margin-top: 0.25rem;
+}
+
+.order-delivery-block p {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.9rem;
+    color: #555;
+    line-height: 1.8;
+}
+
+
+.order-back-link {
+    display: inline-block;
+    margin-top: 2.5rem;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: underline;
+    text-underline-offset: 3px;
+}
+
+.order-back-link:hover {
+    color: #b6502b;
+}
+
+
+.order-details-loading,
+.order-details-error {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    text-align: center;
+    padding: 4rem 0;
+}
+
+.checkout-success {
+    background: #f8f6f1;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 3rem 1.5rem;
+}
+
+.checkout-success-inner {
+    max-width: 520px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.checkout-success-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    border: 1.5px solid #b6502b;
+    color: #b6502b;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.3rem;
+    margin-bottom: 2rem;
+}
+
+
+.checkout-success .eyebrow {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.75rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #b6502b;
+    margin-bottom: 0.75rem;
+}
+
+
+.checkout-success h1 {
+    font-family: "Instrument Serif", serif;
+    font-size: clamp(2.25rem, 5vw, 3.25rem);
+    font-weight: 400;
+    color: #1a1a1a;
+    line-height: 1.1;
+    margin-bottom: 1.25rem;
+}
+
+
+.checkout-success>div>p:not(.eyebrow) {
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.95rem;
+    color: #555;
+    line-height: 1.7;
+    margin-bottom: 0.75rem;
+}
+
+
+.checkout-success strong {
+    font-family: "DM Mono", "Courier New", monospace;
+    font-size: 0.78rem;
+    color: #888;
+    word-break: break-all;
+    display: block;
+    margin-top: 0.35rem;
+    letter-spacing: 0.03em;
+}
+
+
+.checkout-success-link {
+    margin-top: 2.5rem;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #1a1a1a;
+    text-decoration: none;
+    border-bottom: 1px solid #1a1a1a;
+    padding-bottom: 2px;
+    transition: color 0.2s, border-color 0.2s;
+}
+
+.checkout-success-link::after {
+    content: "→";
+    font-size: 0.85rem;
+}
+
+.checkout-success-link:hover {
+    color: #b6502b;
+    border-color: #b6502b;
+}
+
+.toast-container {
+    position: fixed;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    z-index: 1000;
+}
+
+.toast {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.9rem 1.25rem;
+    min-width: 260px;
+    max-width: 360px;
+    background: #1a1a1a;
+    color: #fff;
+    font-family: "DM Sans", sans-serif;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: toast-in 0.25s ease;
+}
+
+.toast-success {
+    background: #1a1a1a;
+    border-left: 3px solid #4caf50;
+}
+
+.toast-error {
+    background: #1a1a1a;
+    border-left: 3px solid #c0392b;
+}
+
+.toast-info {
+    background: #1a1a1a;
+    border-left: 3px solid #746c63;
+}
+
+.toast button {
+    background: none;
+    border: none;
+    color: #fff;
+    font-size: 1.1rem;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.7;
+}
+
+.toast button:hover {
+    opacity: 1;
+}
+
+@keyframes toast-in {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* @media (max-width: 480px) {
+    .checkout-success {
+        align-items: flex-start;
+        padding: 2.5rem 1.25rem;
+    }
+
+    .checkout-success h1 {
+        font-size: 2rem;
+    }
+} */
+
+/* @media (max-width: 480px) {
+    .order-details-page {
+        padding: 2rem 1.25rem;
+    }
+
+    .order-thank-you {
+        font-size: 2.25rem;
+    }
+
+    .order-detail-img {
+        width: 72px;
+        height: 72px;
+    }
+
+    .order-details-footer {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+} */
 
 @media (max-width: 768px) {
     .sub-header {
@@ -2867,11 +3233,11 @@ span {
         padding: 0.85rem 1rem;
     }
 
-    .full-order-summary {
-        position: static;
+    /* .full-order-summary {
+        position: sticky;
         top: auto;
         margin-top: 0;
-    }
+    } */
 
     .summary-item img {
         width: 56px;

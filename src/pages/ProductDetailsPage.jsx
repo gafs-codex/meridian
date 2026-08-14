@@ -18,6 +18,7 @@ import {
 export default function ProductDetailsPage() {
     const { isFavorites, toggleFavorites } = useFavorites();
     const { addToCart } = useCart();
+    const { showToast } = useToast();
 
     const navigate = useNavigate();
     const { slug } = useParams();
@@ -172,31 +173,22 @@ export default function ProductDetailsPage() {
 
     function handleAddToBag() {
         if (!selectedSize) {
-            alert("Please select a size");
+            showToast("Please select a size", "error");
             return;
         }
 
-        addToCart(product, {
-            color: selectedColor,
-            size: selectedSize,
-            quantity: amount
-        });
+        addToCart(product, { color: selectedColor, size: selectedSize, quantity: amount });
+        showToast(`${product.name} added to your bag`, "success");
     }
 
 
 
     function handleBuyNow() {
         if (!selectedSize) {
-            alert("Please select a size");
+            showToast("Please select a size", "error");
             return;
         }
-
-        addToCart(product, {
-            color: selectedColor,
-            size: selectedSize,
-            quantity: amount
-        });
-
+        addToCart(product, { color: selectedColor, size: selectedSize, quantity: amount });
         navigate("/home/checkout");
     }
 

@@ -102,6 +102,7 @@ button .nav-links {
 .menu button {
     border: none;
     background: none;
+    color: #000;
 }
 
 .nav-form {
@@ -1008,6 +1009,7 @@ label {
     padding: 0.6rem 1rem;
     border: 1px solid #ccc;
     background: #fff;
+    color: black;
     cursor: pointer;
     transition: all 0.2s ease;
 }

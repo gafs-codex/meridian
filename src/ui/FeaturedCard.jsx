@@ -1,9 +1,11 @@
 import { Link } from "react-router-dom"
 import { Heart, Star, Circle } from "lucide-react"
 import { useFavorites } from "../context/FavoritesContext";
+import { useToast } from "../context/ToastContext";
 
 export default function FeaturedCard({ product }) {
     const { isFavorites, toggleFavorites } = useFavorites()
+    const { showToast } = useToast()
     const favorited = isFavorites(product.id)
 
     const COLOR_MAP = {
@@ -25,6 +27,7 @@ export default function FeaturedCard({ product }) {
         Slate: "#767e86",
         Blue: "#5b7ea8"
     };
+
     return (
         <Link to={`/home/products/${product.slug}`} className="featured-card">
             <div className="featured-image">
@@ -43,6 +46,13 @@ export default function FeaturedCard({ product }) {
                         e.preventDefault()
                         e.stopPropagation()
                         toggleFavorites(product.id)
+
+                        showToast(
+                            favorited
+                                ? `${product.name} removed from favorites`
+                                : `${product.name} added to favorites`,
+                            "success"
+                        );
                     }}
                 >
                     <Heart size={18} fill={favorited ? "#b6502b" : "transparent"} stroke={favorited ? "#b6502b" : "black"} />

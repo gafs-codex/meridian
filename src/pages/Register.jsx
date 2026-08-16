@@ -227,7 +227,7 @@ export default function Auth() {
                     >
                         {isRegister
                             ? "Sign In"
-                            : "Create one"}
+                            : "Create account"}
                     </button>
                 </p>
 

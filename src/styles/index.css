@@ -1038,6 +1038,7 @@ label {
     background: none;
     border: none;
     cursor: pointer;
+    color: #000;
 }
 
 .quantity-control span {
@@ -1595,9 +1596,10 @@ dd {
     padding: 0.75rem;
     border: 1px solid #ccc;
     background: transparent;
-    font-size: 0.9rem;
+    font-size: 1.05rem;
     outline: none;
     color: #746c63;
+    font-weight: 400;
 }
 
 .checkout-main input:focus {
@@ -1860,6 +1862,9 @@ dd {
     outline: none;
     border: 1px solid #ccc;
     background: inherit;
+    font-size: 1.05rem;
+    font-weight: 300;
+    font-family: "DM Sans", sans-serif;
 }
 
 .register-forms input:focus {
@@ -2885,6 +2890,7 @@ span {
         letter-spacing: 0.05em;
         cursor: pointer;
         text-transform: uppercase;
+        color: #000;
     }
 
     .sort-dropdown {
@@ -3166,6 +3172,7 @@ span {
 
     .buy-now {
         margin-top: 0.5rem;
+        color: #000;
     }
 
 
@@ -3223,6 +3230,11 @@ span {
 
     .form-main {
         gap: 1rem;
+    }
+
+    .form-main input {
+        font-size: 1.05rem;
+        font-weight: 300;
     }
 
     .shipping-method,

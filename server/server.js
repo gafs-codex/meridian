@@ -18,9 +18,6 @@ app.use(
 app.use(express.json());
 
 
-// -------------------------------------
-// Health check
-// -------------------------------------
 
 app.get("/api/health", (req, res) => {
     res.json({
@@ -30,9 +27,6 @@ app.get("/api/health", (req, res) => {
 });
 
 
-// -------------------------------------
-// Create Stripe Checkout Session
-// -------------------------------------
 
 app.post("/api/create-checkout-session", async (req, res) => {
     try {

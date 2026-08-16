@@ -65,10 +65,6 @@ export default function Checkout() {
         try {
             setLoading(true);
 
-            /*
-             * Save everything we need after Stripe redirects
-             * the user back to Meridian.
-             */
             const pendingCheckout = {
                 userId: user.id,
                 form,
@@ -85,7 +81,7 @@ export default function Checkout() {
             );
 
             const response = await fetch(
-                "http://localhost:4242/api/create-checkout-session",
+                "/api/create-checkout-session",
                 {
                     method: "POST",
                     headers: {
